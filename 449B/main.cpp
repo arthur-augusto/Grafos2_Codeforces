@@ -2,6 +2,30 @@
 
 using namespace std;
 
+// Encontra o menor caminho do primeiro nó até todos os outros nós do grafo
+void dijkstra(vector<pair<int, int>> adj[], priority_queue<pair<int, int>> &q, vector<int> &distance, vector<bool> &processed) {
+    distance[1] = 0;
+    q.push({0, 1});
+
+    while (!q.empty()) {
+        int a = q.top().second;
+        q.pop();
+
+        if (processed[a]) continue;
+
+        processed[a] = true;
+
+        for (auto u : adj[a]) {
+            int b = u.first, w = u.second;
+
+            if (distance[a] + w < distance[b]) {
+                distance[b] = distance[a] + w;
+                q.push({-distance[b], b});
+            }
+        }
+    }
+}
+
 int main() {
     int n, m, k, u, v, x, s, y;
 
@@ -23,8 +47,8 @@ int main() {
 
         tr[i] = {s, y};
 
-//        adj[1].push_back({s, y});
-//        adj[s].push_back({1, y});
+        adj[1].push_back({s, y});
+        adj[s].push_back({1, y});
     }
 
     priority_queue<pair<int, int>> q;
@@ -32,26 +56,7 @@ int main() {
     vector<int> distance(n + 1, INT_MAX);
     vector<bool> processed(n + 1, false);
 
-    distance[1] = 0;
-    q.push({0, 1});
-
-    while (!q.empty()) {
-        int a = q.top().second;
-        q.pop();
-
-        if (processed[a]) continue;
-
-        processed[a] = true;
-
-        for (auto u : adj[a]) {
-            int b = u.first, w = u.second;
-
-            if (distance[a] + w < distance[b]) {
-                distance[b] = distance[a] + w;
-                q.push({-distance[b], b});
-            }
-        }
-    }
+    dijkstra(adj, q, distance, processed);
 
     int train_routes_used = 0;
 
