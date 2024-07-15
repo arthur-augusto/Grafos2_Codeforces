@@ -3,7 +3,7 @@
 using namespace std;
 
 // Encontra o menor caminho do primeiro nó até todos os outros nós do grafo
-void dijkstra(vector<pair<unsigned int, unsigned int>> adj[], priority_queue<pair<long long, unsigned int>> &q, vector<long long> &distance, vector<bool> &processed) {
+void dijkstra(vector<pair<unsigned int, long long>> adj[], priority_queue<pair<long long, unsigned int>> &q, vector<long long> &distance, vector<bool> &processed) {
     distance[1] = 0;
     q.push({0, 1});
 
@@ -31,14 +31,12 @@ int main() {
 
     cin >> n >> m >> k;
 
-    vector<pair<unsigned int, unsigned int>> adj[n + 1];
+    vector<pair<unsigned int, long long>> adj[n + 1];
 
     priority_queue<pair<long long, unsigned int>> q;
 
-    vector<long long> distance1(n + 1, INT_MAX), distance2(n + 1, INT_MAX);
+    vector<long long> distance1(n + 1, LLONG_MAX), distance2(n + 1, LLONG_MAX);
     vector<bool> processed1(n + 1, false), processed2(n + 1, false);
-
-    vector<pair<int, int>> tr(k);
 
     for (unsigned int i = 0; i < n; i++) {
         cin >> u >> v >> x;
@@ -51,8 +49,6 @@ int main() {
 
     for (unsigned int i = 0; i < k; i++) {
         cin >> s >> y;
-
-        tr[i] = {s, y};
 
         adj[1].push_back({s, y});
         adj[s].push_back({1, y});
