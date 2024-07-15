@@ -27,7 +27,8 @@ void dijkstra(vector<pair<int, int>> adj[], priority_queue<pair<int, int>> &q, v
 }
 
 int main() {
-    int n, m, k, u, v, x, s, y;
+    int n, m, k, u, v, x, s;
+    unsigned int y;
 
     cin >> n >> m >> k;
 
