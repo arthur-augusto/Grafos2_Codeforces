@@ -33,6 +33,13 @@ int main() {
 
     vector<pair<int, int>> adj[n + 1];
 
+    priority_queue<pair<int, int>> q;
+
+    vector<int> distance1(n + 1, INT_MAX), distance2(n + 1, INT_MAX);
+    vector<bool> processed1(n + 1, false), processed2(n + 1, false);
+
+    vector<pair<int, int>> tr(k);
+
     for (int i = 0; i < n; i++) {
         cin >> u >> v >> x;
 
@@ -40,7 +47,7 @@ int main() {
         adj[v].push_back({u, x});
     }
 
-    vector<pair<int, int>> tr(k);
+    dijkstra(adj, q, distance1, processed1);
 
     for (int i = 0; i < k; i++) {
         cin >> s >> y;
@@ -51,17 +58,12 @@ int main() {
         adj[s].push_back({1, y});
     }
 
-    priority_queue<pair<int, int>> q;
-
-    vector<int> distance(n + 1, INT_MAX);
-    vector<bool> processed(n + 1, false);
-
-    dijkstra(adj, q, distance, processed);
+    dijkstra(adj, q, distance2, processed2);
 
     int train_routes_used = 0;
 
-    for (int i = 0; i < k; i++) {
-        if (tr[i].second < distance[tr[i].first])
+    for (int i = 1; i <= n; i++) {
+        if (distance2[i] < distance1[i])
             train_routes_used++;
     }
 
