@@ -42,7 +42,7 @@ int main() {
 
     vector<pair<int, int>> tr(k);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < k; i++) {
         cin >> s >> y;
 
         tr[i] = {s, y};
