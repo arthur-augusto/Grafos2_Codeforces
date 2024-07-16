@@ -47,14 +47,14 @@ int main() {
     vector<unsigned long long> distance(n + 1, ULLONG_MAX);
     vector<bool> processed(n + 1, false);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 1; i <= m; i++) {
         cin >> u >> v >> x;
 
         adj[u].push_back(make_tuple(v, x, false));
         adj[v].push_back(make_tuple(u, x, false));
     }
 
-    for (int i = 0; i < k; i++) {
+    for (int j = 1; j <= k; j++) {
         cin >> s >> y;
 
         adj[1].push_back(make_tuple(s, y, true));
